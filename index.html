@@ -2,13 +2,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Hanken+Grotesk:wght@400;500;600&display=swap">
 <script>
-/* Motion layer. Hold the hero until the libraries arrive; if they never do, show the plain page. */
+/* Motion layer. The hero shows immediately; scroll effects join when the libraries arrive. */
 document.documentElement.lang='en';
 if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
-  var __r=document.documentElement;
-  __r.classList.add('fx');
-  if(innerWidth>820&&innerHeight>=600)__r.classList.add('pin');
-  setTimeout(function(){if(!window.__fxReady){__r.classList.remove('fx');__r.classList.remove('pin')}},3000);
+  document.documentElement.classList.add('fx');
 }
 </script>
 <style>
@@ -59,7 +56,16 @@ img,video{display:block;max-width:100%}
 .hold.off .ico-play{display:block}
 .hold.off .ico-pause{display:none}
 @media(hover:hover) and (pointer:fine){.hold:hover{background:var(--navy)}}
-.fx .panels,.fx .poster h1,.fx .bar-low,.fx .bar-top{visibility:hidden}
+@keyframes unfold{from{clip-path:inset(100% 0 0 0 round var(--rad))}to{clip-path:inset(0 0 0 0 round var(--rad))}}
+@keyframes settle{from{transform:scale(1.28)}to{transform:none}}
+@keyframes rise{from{transform:translateY(112%)}to{transform:none}}
+@keyframes show{from{opacity:0}to{opacity:1}}
+.fx .panel{animation:unfold 1.5s var(--ease) backwards}
+.fx .panel>img,.fx .panel>video{animation:settle 1.9s var(--ease) backwards}
+.fx .panel:nth-child(2),.fx .panel:nth-child(2)>video{animation-delay:.12s}
+.fx .panel:nth-child(3),.fx .panel:nth-child(3)>img{animation-delay:.24s}
+.fx .poster h1 i{animation:rise 1.25s var(--ease) backwards;animation-delay:calc(.25s + var(--i) * .022s)}
+.fx .bar-top,.fx .bar-low{animation:show 1.2s ease-out .9s backwards}
 
 /* The film. In flow on phones, an opening layer of the hero on larger screens. */
 .trailer{padding-block:clamp(14px,3vh,28px) clamp(50px,9vh,100px)}
@@ -68,6 +74,7 @@ img,video{display:block;max-width:100%}
 .trailer-head p{font-size:var(--small);font-weight:500;padding-bottom:.6em;white-space:nowrap}
 .tv{display:block;position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--navy);border-radius:var(--rad)}
 .tv-link{position:absolute;inset:0;display:block;text-decoration:none;cursor:pointer}
+.tv-link:focus-visible{outline:3px solid #fff;outline-offset:-8px}
 .tv img,.tv video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
 .tv video{object-fit:contain;background:#05151f;z-index:2}
 .play{position:absolute;right:clamp(14px,2vw,32px);bottom:clamp(14px,2vw,32px);width:clamp(92px,10vw,150px);height:clamp(92px,10vw,150px);border-radius:50%;background:var(--sky);color:var(--navy);display:grid;place-items:center;font-family:var(--tall);text-transform:uppercase;font-size:clamp(2.4rem,4vw,3.8rem);line-height:1;padding-top:.06em;pointer-events:none;z-index:1}
@@ -121,6 +128,7 @@ dl{margin:0}
 .film{all:unset;display:block;position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad);background:var(--navy);cursor:pointer}
 .film:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
 .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 24%;max-width:none}
+.film video::cue{background:rgba(5,21,31,.78);color:#fff;font-family:"Hanken Grotesk",Arial,sans-serif;font-size:.95rem}
 .fp{position:absolute;left:clamp(10px,1vw,16px);bottom:clamp(10px,1vw,16px);width:clamp(68px,6vw,92px);height:clamp(68px,6vw,92px);border-radius:50%;background:var(--sky);color:var(--navy);display:grid;place-items:center;font-family:var(--tall);text-transform:uppercase;font-size:clamp(2rem,3vw,2.9rem);line-height:1;padding-top:.06em;pointer-events:none;transition:opacity .2s ease,transform .2s ease-out}
 .film:active .fp{transform:scale(.97)}
 .film.playing .fp{opacity:0;transform:scale(.92)}
@@ -133,6 +141,10 @@ dl{margin:0}
 .rv blockquote{margin:0;font-family:var(--tall);text-transform:uppercase;font-size:clamp(3.4rem,12.5vw,13.5rem);line-height:.88;letter-spacing:.008em}
 .rv .who{display:block;margin-top:10px;font-size:var(--small)}
 @media(hover:hover) and (pointer:fine){.rv:hover .who{text-decoration:underline}}
+.rv-in{min-height:0;overflow:hidden}
+.rv-in .film{width:min(360px,100%);margin-bottom:clamp(14px,3vh,30px)}
+.fx .rv-film{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s cubic-bezier(.23,1,.32,1)}
+.fx .rv-film.open{grid-template-rows:1fr}
 
 /* Box office */
 .box{padding-block:clamp(40px,7vh,80px) clamp(40px,8vh,90px)}
@@ -223,7 +235,8 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
       </div>
       <div class="panel" id="p-r"><img src="img/smile.jpg" srcset="img/smile-800.jpg 800w,img/smile.jpg 1600w" sizes="34vw" width="1600" height="1067" alt="A participant smiling at the camera in the loft" style="object-position:72% 40%" fetchpriority="high"></div>
     </div>
-    <h1 class="tall" data-chars>Two days in Venice</h1>
+    <h1 class="tall">Two days in Venice</h1>
+    <script>(function(){if(!document.documentElement.classList.contains('fx'))return;var h=document.currentScript.previousElementSibling,t=h.textContent,n=0;h.setAttribute('aria-label',t);h.textContent='';t.split(' ').forEach(function(w,i,a){var s=document.createElement('span');s.className='w';s.setAttribute('aria-hidden','true');w.split('').forEach(function(c){var o=document.createElement('span');o.className='ch';var e=document.createElement('i');e.textContent=c;e.style.setProperty('--i',n++);o.appendChild(e);s.appendChild(o)});h.appendChild(s);if(i<a.length-1)h.appendChild(document.createTextNode(' '))})})()</script>
     <div class="bar-low pad"><span>The AI bootcamp. Leave with AI agents running your business.</span><span>Nov 21 and 22. $1,800 or your money back.</span></div>
   </header>
 
@@ -286,17 +299,17 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
   <h2 class="tall" data-chars>Hear it from them</h2>
   <div class="f-row">
     <div class="f-tile">
-      <button class="film" aria-label="Play Eric Luke’s video"><video preload="none" playsinline poster="img/p-eric.jpg" src="img/t-eric.mp4"></video><span class="fp" aria-hidden="true">Play</span><i class="fbar"></i></button>
+      <button class="film" aria-label="Play Eric Luke’s video"><video preload="none" playsinline poster="img/p-eric.jpg" src="img/t-eric.mp4"><track kind="captions" src="img/t-eric.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true">Play</span><i class="fbar"></i></button>
       <blockquote>Anything that I can do on a computer, Claude can do on a computer for me.</blockquote>
       <p class="f-who"><span>Eric Luke, runs short-term rentals in Venice</span><span>0:20</span></p>
     </div>
     <div class="f-tile">
-      <button class="film" aria-label="Play Lily’s video"><video preload="none" playsinline poster="img/g4.jpg" src="img/t-lily.mp4"></video><span class="fp" aria-hidden="true">Play</span><i class="fbar"></i></button>
+      <button class="film" aria-label="Play Lily’s video"><video preload="none" playsinline poster="img/g4.jpg" src="img/t-lily.mp4"><track kind="captions" src="img/t-lily.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true">Play</span><i class="fbar"></i></button>
       <blockquote>I do a lot of things really well at 10%, and this weekend has given me the tools to get to 100%.</blockquote>
       <p class="f-who"><span>Lily, photographer and retoucher</span><span>0:24</span></p>
     </div>
     <div class="f-tile">
-      <button class="film" aria-label="Play Shirlene’s video"><video preload="none" playsinline poster="img/p-shirlene.jpg" src="img/t-shirlene.mp4"></video><span class="fp" aria-hidden="true">Play</span><i class="fbar"></i></button>
+      <button class="film" aria-label="Play Shirlene’s video"><video preload="none" playsinline poster="img/p-shirlene.jpg" src="img/t-shirlene.mp4"><track kind="captions" src="img/t-shirlene.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true">Play</span><i class="fbar"></i></button>
       <blockquote>I’ve been to other AI bootcamps where you’re just, like, copying and pasting templates.</blockquote>
       <p class="f-who"><span>Shirlene, building a parenting app</span><span>0:22</span></p>
     </div>
@@ -304,12 +317,22 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
 </section>
 
 <section class="shout sky pad" id="shout" aria-label="More graduate reviews">
-  <a class="rv" href="https://customer-w6qpet4v0sgyynjp.cloudflarestream.com/d91b3155d63ac95bfd7f574db3b9fdcd/watch"><blockquote>Just dive right into this AI thing.</blockquote><span class="who">Valeria Vallejos, actress, building a few businesses. Watch.</span></a>
-  <a class="rv" href="https://customer-w6qpet4v0sgyynjp.cloudflarestream.com/0982395af8df005e6ba1dd716a6b5b4c/watch"><blockquote>I got exactly what I wanted.</blockquote><span class="who">Sebastian, growth marketing agency. Watch.</span></a>
+  <div class="rv-wrap">
+    <a class="rv" href="#film-valeria" data-open="film-valeria"><blockquote>Just dive right into this AI thing.</blockquote><span class="who">Valeria Vallejos, actress, building a few businesses. Watch.</span></a>
+    <div class="rv-film" id="film-valeria"><div class="rv-in">
+      <button class="film" aria-label="Play Valeria’s video"><video preload="none" playsinline poster="img/p-valeria.jpg" src="img/t-valeria.mp4"><track kind="captions" src="img/t-valeria.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true">Play</span><i class="fbar"></i></button>
+    </div></div>
+  </div>
+  <div class="rv-wrap">
+    <a class="rv" href="#film-sebastian" data-open="film-sebastian"><blockquote>I got exactly what I wanted.</blockquote><span class="who">Sebastian, growth marketing agency. Watch.</span></a>
+    <div class="rv-film" id="film-sebastian"><div class="rv-in">
+      <button class="film" aria-label="Play Sebastian’s video"><video preload="none" playsinline poster="img/p-sebastian.jpg" src="img/t-sebastian.mp4"><track kind="captions" src="img/t-sebastian.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true">Play</span><i class="fbar"></i></button>
+    </div></div>
+  </div>
 </section>
 
 <section class="box" id="reserve">
-  <div class="price tall" data-chars aria-label="$1,800">$1,800</div>
+  <div class="price tall" role="img" aria-label="$1,800">$1,800</div>
   <div class="box-grid pad">
     <div class="ticket" id="ticket">
       <div class="t-top">
@@ -406,7 +429,7 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
     }
     v.addEventListener('error',small);
     v.addEventListener('play',function(){films.forEach(function(f){f.querySelector('video').pause()})});
-    tv.classList.add('on');trailer.classList.add('playing');tv.appendChild(v);
+    tv.classList.add('on');trailer.classList.add('playing');tv.appendChild(v);tvLink.tabIndex=-1;
     if(window.Hls&&Hls.isSupported()){
       hls=new Hls({enableWorker:false,maxBufferLength:24});
       hls.on(Hls.Events.ERROR,function(_,d){if(d.fatal)small()});
@@ -430,6 +453,21 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
     new IntersectionObserver(function(es){if(!es[0].isIntersecting)v.pause()},{threshold:.1}).observe(f);
   });
 
+  // Quotes with a video open it right here and play it, so nobody leaves the page.
+  document.querySelectorAll('[data-open]').forEach(function(a){
+    var box=document.getElementById(a.dataset.open),f=box.querySelector('.film');
+    if(root.classList.contains('fx'))f.setAttribute('tabindex','-1');
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      box.classList.add('open');f.removeAttribute('tabindex');
+      start(f);
+      setTimeout(function(){
+        if(window.ScrollTrigger)ScrollTrigger.refresh();
+        if(window.__lenis)window.__lenis.scrollTo(f,{offset:-140,immediate:true});else f.scrollIntoView({block:'center'});
+      },320);
+    });
+  });
+
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   if(reduce){vid.removeAttribute('autoplay');setHeld(true);return}
   new IntersectionObserver(function(es){
@@ -438,10 +476,11 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
   }).observe(vid);
 
   if(!window.gsap||!window.ScrollTrigger){root.classList.remove('fx','pin');return}
-  window.__fxReady=true;
+  var PIN=innerWidth>820&&innerHeight>=600;
+  if(PIN)root.classList.add('pin');
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ignoreMobileResize:true});
-  var EASE='expo.out',PIN=root.classList.contains('pin');
+  var EASE='expo.out';
   var RAD=parseFloat(getComputedStyle(document.querySelector('.panel')).borderTopLeftRadius)||18;
 
   // The opening and the acts are laid out differently on phones, so crossing that width rebuilds the page.
@@ -479,15 +518,6 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
     return el.querySelectorAll('.wd');
   }
 
-  // Page load: panels unfold, then the title rises letter by letter.
-  var heroChars=chars(document.querySelector('.poster h1'));
-  gsap.set('.panels,.poster h1,.bar-low,.bar-top',{visibility:'visible'});
-  var intro=gsap.timeline({defaults:{ease:EASE}});
-  intro.fromTo('.panel',{clipPath:'inset(100% 0% 0% 0% round '+RAD+'px)'},{clipPath:'inset(0% 0% 0% 0% round '+RAD+'px)',duration:1.5,stagger:.12,clearProps:'clipPath'},0)
-       .fromTo('.panel>img,.panel>video',{scale:1.28},{scale:1,duration:1.9,stagger:.12},0)
-       .fromTo(heroChars,{yPercent:112},{yPercent:0,duration:1.25,stagger:.022},.25)
-       .fromTo('.bar-top,.bar-low',{autoAlpha:0},{autoAlpha:1,duration:1.2,ease:'power2.out'},.9);
-
   // The signature move. The film layer starts clipped to the centre panel, then the panel opens to fill the screen.
   if(PIN){
     var stage=document.getElementById('stage'),pc=document.getElementById('p-c'),slot={t:0,r:0,b:0,l:0},open={v:0};
@@ -503,8 +533,8 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
     var titleChars=chars(document.getElementById('film-title'));
     gsap.set(tv,{opacity:0});
     gsap.set(titleChars,{yPercent:112});
-    gsap.set('#play',{autoAlpha:0});
-    gsap.set('.pin .trailer-head p',{autoAlpha:0});
+    gsap.set('#play',{opacity:0});
+    gsap.set('.pin .trailer-head p',{opacity:0});
     var tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
       trigger:stage,start:'top top',end:'+=140%',pin:true,scrub:.5,anticipatePin:1,
       onRefresh:function(){measure();paint()},
@@ -521,9 +551,17 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
       .to('#p-r',{xPercent:112,duration:.46,ease:'power2.in'},.04)
       .fromTo('#tv-img',{scale:1.16},{scale:1,duration:.8},0)
       .to(titleChars,{yPercent:0,duration:.16,stagger:.004},.6)
-      .to('.pin .trailer-head p',{autoAlpha:1,duration:.1},.74)
-      .to('#play',{autoAlpha:1,duration:.1},.74)
+      .to('.pin .trailer-head p',{opacity:1,duration:.1},.74)
+      .to('#play',{opacity:1,duration:.1},.74)
       .to({},{duration:.1},.9);
+  }
+
+  // Keyboard users jump straight to what they focused, so focus never lands on something invisible.
+  if(PIN){
+    var pinST=tl.scrollTrigger;
+    function jump(y){if(window.__lenis)window.__lenis.scrollTo(y,{immediate:true});else scrollTo(0,y)}
+    tvLink.addEventListener('focus',function(){if(pinST.progress<.9)jump(pinST.end)});
+    hold.addEventListener('focus',function(){if(pinST.progress>.3)jump(pinST.start)});
   }
 
   // One continuous sky: the page colour melts between sky and white.
@@ -543,19 +581,19 @@ html:not(.fx) .pill{opacity:1;transform:none;pointer-events:auto}
     var acts=[].slice.call(document.querySelectorAll('.act')),GROW=2.7;
     gsap.set(acts,{flexGrow:1});
     gsap.set(acts[0],{flexGrow:GROW});
-    gsap.set(acts[1].querySelectorAll('.d'),{autoAlpha:0});
-    gsap.set(acts[2].querySelectorAll('.d'),{autoAlpha:0});
+    gsap.set(acts[1].querySelectorAll('.d'),{opacity:0});
+    gsap.set(acts[2].querySelectorAll('.d'),{opacity:0});
     var at=gsap.timeline({defaults:{ease:'power2.inOut'},scrollTrigger:{trigger:'#acts',start:'top top',end:'+=190%',pin:true,scrub:.5,anticipatePin:1}});
     at.to({},{duration:.25},0)
       .to(acts[0],{flexGrow:1,duration:.5},.25)
       .to(acts[1],{flexGrow:GROW,duration:.5},.25)
-      .to(acts[0].querySelectorAll('.d'),{autoAlpha:0,duration:.14},.25)
-      .to(acts[1].querySelectorAll('.d'),{autoAlpha:1,duration:.2},.55)
+      .to(acts[0].querySelectorAll('.d'),{opacity:0,duration:.14},.25)
+      .to(acts[1].querySelectorAll('.d'),{opacity:1,duration:.2},.55)
       .to({},{duration:.25},.75)
       .to(acts[1],{flexGrow:1,duration:.5},1)
       .to(acts[2],{flexGrow:GROW,duration:.5},1)
-      .to(acts[1].querySelectorAll('.d'),{autoAlpha:0,duration:.14},1)
-      .to(acts[2].querySelectorAll('.d'),{autoAlpha:1,duration:.2},1.3)
+      .to(acts[1].querySelectorAll('.d'),{opacity:0,duration:.14},1)
+      .to(acts[2].querySelectorAll('.d'),{opacity:1,duration:.2},1.3)
       .to({},{duration:.25},1.5);
   }
 
