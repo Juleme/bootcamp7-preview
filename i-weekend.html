@@ -246,10 +246,25 @@ html:not(.motion) .sun,html:not(.motion) .stars,html:not(.motion) .moon{display:
   var at={x:phone?72:68,y:phone?-3:8,s:1};
   gsap.set(sun,{x:vw(at.x),y:vh(at.y),scale:1});
   function sky(id,n,a,b){gsap.fromTo(layers[n],{opacity:0},{opacity:1,ease:'none',scrollTrigger:{trigger:id,start:a,end:b,scrub:true}})}
-  // One sun. Each scene moves it on from where the last one left it.
-  function sunTo(id,x,y,s,a,b){
-    var f=at,to={x:x,y:y,s:s};at=to;
-    gsap.fromTo(sun,{x:function(){return vw(f.x)},y:function(){return vh(f.y)},scale:f.s},{x:function(){return vw(to.x)},y:function(){return vh(to.y)},scale:to.s,ease:'none',immediateRender:false,scrollTrigger:{trigger:id,start:a||'top 90%',end:b||'top 15%',scrub:.3,invalidateOnRefresh:true}});
+  // One sun, one calculation. Its place depends only on where you are on the page.
+  var path=[];
+  function sunTo(id,x,y,s,a,b){path.push({el:document.querySelector(id),x:x,y:y,s:s,ap:a?parseFloat(a.split(' ')[1]):90,bp:b?parseFloat(b.split(' ')[1]):15})}
+  function sunMeasure(){
+    path.forEach(function(p){
+      var box=p.el.parentNode.classList.contains('pin-spacer')?p.el.parentNode:p.el;
+      var top=box.getBoundingClientRect().top+scrollY;
+      p.a=top-innerHeight*p.ap/100;p.b=top-innerHeight*p.bp/100;
+    });
+  }
+  var sunX=gsap.quickSetter(sun,'x','px'),sunY=gsap.quickSetter(sun,'y','px'),sunSX=gsap.quickSetter(sun,'scaleX'),sunSY=gsap.quickSetter(sun,'scaleY');
+  function sunPaint(){
+    var y=scrollY,c={x:at.x,y:at.y,s:at.s};
+    for(var i=0;i<path.length;i++){
+      var p=path[i];if(y<=p.a)break;
+      var k=Math.min(1,(y-p.a)/(p.b-p.a));
+      c={x:c.x+(p.x-c.x)*k,y:c.y+(p.y-c.y)*k,s:c.s+(p.s-c.s)*k};
+    }
+    sunX(vw(c.x));sunY(vh(c.y));sunSX(c.s);sunSY(c.s);
   }
   // Created in page order so the pinned night offsets everything after it correctly.
   sunTo('#s-before',76,4,.95);
@@ -268,6 +283,7 @@ html:not(.motion) .sun,html:not(.motion) .stars,html:not(.motion) .moon{display:
   sky('#s-people',4,'top 70%','top 15%');sunTo('#s-people',74,8,1);
   sky('#reserve',5,'top 70%','top 15%');sunTo('#reserve',64,62,2.3);
   sky('#s-mon',6,'top 70%','top 15%');sunTo('#s-mon',10,14,.9);
+  ScrollTrigger.create({start:0,end:'max',onRefresh:function(){sunMeasure();sunPaint()},onUpdate:sunPaint});
   // A small marker keeps you in the timeline.
   var now=document.getElementById('now');
   document.querySelectorAll('[data-now]').forEach(function(sec){

@@ -1,0 +1,432 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Bootcamp 7 Page</title>
+<meta name="theme-color" content="#bfe6fb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="common.css">
+<style>
+/* The page is the weekend itself. One real sun crosses one real sky, Saturday noon to Sunday sunset, with a night in the middle while your first routine keeps running. */
+:root{--bg:#bfe6fb;--ink:#08263a;--cta:#08263a;--on-cta:#ffffff;--rad:16px;--btn-rad:999px;--display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;--body:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;color-scheme:light}
+.b{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-height:.98;font-variation-settings:"opsz" 96}
+body{background:#bfe6fb}
+.sky{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.sky i{position:absolute;inset:0;opacity:0;will-change:opacity}
+.sky .s0{opacity:1;background:linear-gradient(#8fd2f7,#d9f1fd)}
+.sky .s1{background:linear-gradient(#f7c98b,#ffe9c4)}
+.sky .s2{background:linear-gradient(#071631,#16325c)}
+.sky .s3{background:linear-gradient(#ffc9b5,#ffeed8)}
+.sky .s4{background:linear-gradient(#ffd79a,#fff0d2)}
+.sky .s5{background:linear-gradient(#f2704a,#ffc36a)}
+.sky .s6{background:linear-gradient(#a9dcf8,#eef9ff)}
+.sun{position:fixed;left:0;top:0;width:clamp(120px,18vw,280px);aspect-ratio:1;border-radius:50%;background:#ffd34d;z-index:-1;pointer-events:none;will-change:transform;transform:translate(68vw,8vh)}
+.stars{position:fixed;inset:0;z-index:-1;opacity:0;pointer-events:none;background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff 98%,transparent),radial-gradient(1px 1px at 26% 42%,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 41% 12%,#fff 98%,transparent),radial-gradient(1px 1px at 58% 30%,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 73% 16%,#fff 98%,transparent),radial-gradient(1px 1px at 86% 38%,#fff 98%,transparent),radial-gradient(1px 1px at 18% 66%,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 66% 58%,#fff 98%,transparent),radial-gradient(1px 1px at 92% 70%,#fff 98%,transparent)}
+.moon{position:fixed;right:9vw;top:11vh;width:clamp(70px,9vw,130px);aspect-ratio:1;border-radius:50%;background:#f4f7ff;z-index:-1;opacity:0;pointer-events:none}
+html:not(.motion) .sun,html:not(.motion) .stars,html:not(.motion) .moon{display:none}
+.motion .dawn,.motion .night{transition:none}
+
+/* Hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;padding-block:14px 16px}
+.top{display:flex;justify-content:space-between;align-items:center;font-weight:600}
+.top .btn{font-size:.9375rem}
+.hero-main{flex:1;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(16px,3vh,40px)}
+.when-big{font-size:clamp(1.15rem,1.9vw,1.75rem);font-weight:600;letter-spacing:-.01em}
+.hero h1{font-size:min(11.6vw,20vh);margin-top:6px}
+#rank{display:block;transition:opacity .14s ease,transform .2s cubic-bezier(.23,1,.32,1)}
+#rank.out{opacity:0;transform:translateY(.1em)}
+.hero-low{display:grid;grid-template-columns:5fr 7fr;gap:clamp(16px,3vw,50px);align-items:end}
+.offer p{font-size:clamp(1.1rem,1.6vw,1.45rem);line-height:1.28;max-width:32ch}
+.offer .btn{font-size:1.125rem;margin-top:14px}
+.offer small{display:block;margin-top:10px;font-size:.9375rem;font-weight:500}
+.strip{display:grid;grid-template-columns:3fr 2fr 2fr;gap:8px;height:clamp(160px,28vh,300px)}
+.offer .in{display:block;margin-top:8px;font-size:.9375rem;font-weight:500}
+.strip img{width:100%;height:100%;object-fit:cover;border-radius:var(--rad);min-width:0}
+
+/* Scenes */
+.scene{min-height:100svh;padding-block:clamp(60px,12vh,130px);display:flex;flex-direction:column;justify-content:center}
+.stamp{font-size:clamp(3.4rem,10.6vw,11.4rem)}
+.line{margin-top:12px;font-size:clamp(1.3rem,2.2vw,2.1rem);line-height:1.2;font-weight:500;max-width:30ch;font-family:var(--display);letter-spacing:-.015em}
+.pic{margin-top:clamp(18px,4vh,40px);width:min(100%,960px);aspect-ratio:16/9;object-fit:cover;border-radius:var(--rad)}
+.pic.r{align-self:flex-end}
+.r-t{align-items:flex-end;text-align:right}
+.r-t .line{margin-left:auto}
+.night{color:#fff;height:100svh;min-height:560px;justify-content:center;padding-block:clamp(30px,6vh,70px)}
+.night .line{max-width:24ch}
+.clock{font-size:clamp(5rem,21vw,23rem);line-height:.9;margin-top:clamp(14px,3vh,34px);font-variant-numeric:tabular-nums;letter-spacing:-.04em;white-space:nowrap}
+.status{display:flex;align-items:center;gap:.6em;margin-top:clamp(10px,2vh,20px);font-weight:600;font-size:clamp(1.05rem,1.5vw,1.35rem)}
+.dot{width:.7em;height:.7em;border-radius:50%;background:#7ff0b0}
+.motion .dot{animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
+.before-g{display:grid;grid-template-columns:5fr 7fr;gap:clamp(18px,3vw,50px);align-items:end;margin-top:clamp(18px,4vh,40px)}
+.before-g .big{font-family:var(--display);font-weight:500;letter-spacing:-.015em;font-size:clamp(1.25rem,2vw,1.9rem);line-height:1.2}
+.before-g .big+.big{margin-top:14px}
+.before-g .tv{margin-top:0}
+.now{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:9;background:#08263a;color:#fff;padding:14px 18px;border-radius:999px;font-weight:600;opacity:0;transition:opacity .2s ease,background-color .2s ease,color .2s ease;font-variant-numeric:tabular-nums;pointer-events:none}
+.now.show{opacity:1}
+.is-night .now{background:#fff;color:#08263a}
+.at-box .now{opacity:0}
+.at-mon .pill{opacity:0;pointer-events:none}
+.is-night .pill{background:#fff;color:#08263a}
+.monday{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(60px,12vh,130px)}
+.monday .btn{align-self:flex-start;font-size:1.125rem;margin-top:clamp(20px,4vh,40px)}
+/* Film and people */
+.tv{margin-top:clamp(16px,3vh,28px)}
+.film-t{font-size:clamp(2.6rem,6.6vw,7rem)}
+.film-by{margin-top:8px;font-weight:600}
+.group{padding-block:clamp(50px,9vh,100px)}
+.group .film-t{margin-bottom:16px}
+.cast{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px);margin-top:clamp(18px,4vh,40px);font-size:clamp(1.02rem,1.25vw,1.15rem);line-height:1.32}
+.cast h3{font-size:clamp(1.5rem,2.2vw,2.2rem);margin-bottom:6px}
+
+/* Box office, at sunset */
+.box{padding-block:clamp(60px,11vh,120px);color:#08263a}
+.price{font-size:clamp(6rem,17vw,19rem);font-variant-numeric:tabular-nums}
+.box-grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(30px,5vw,80px);margin-top:18px;align-items:start}
+.card{background:#fff;border-radius:var(--rad);padding:clamp(18px,2vw,28px)}
+.card .inc{font-size:clamp(1.02rem,1.25vw,1.15rem)}
+.card .inc li{padding-block:8px;border-top:1px solid rgba(8,38,58,.18);line-height:1.3}
+.card .inc li:first-child{border-top:0;padding-top:0}
+.card .btn{display:block;font-size:1.125rem;margin-top:16px}
+.guar{margin-top:14px;font-weight:600;line-height:1.3}
+.fine{margin-top:8px;font-size:.9375rem}
+.pay h3{font-size:clamp(1.5rem,2.2vw,2.2rem);margin-bottom:14px}
+.pay .back{font-family:var(--display);font-weight:700;letter-spacing:-.03em;font-size:clamp(2.2rem,3.8vw,3.8rem);line-height:1}
+.faq{margin-top:22px}
+.end{padding-block:10px 26px;font-size:.875rem;color:#08263a}
+
+/* Why Claude Code */
+.brain{padding-block:clamp(60px,12vh,130px)}
+.brain h2{font-size:clamp(3rem,7.6vw,8.2rem);max-width:15ch}
+.brain-g{display:grid;grid-template-columns:7fr 5fr;gap:clamp(20px,4vw,70px);margin-top:clamp(20px,4vh,44px)}
+.brain-g p{font-family:var(--display);font-weight:500;letter-spacing:-.015em;font-size:clamp(1.25rem,1.9vw,1.8rem);line-height:1.22}
+.brain-g p+p{margin-top:14px}
+.pts{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px);margin-top:clamp(26px,5vh,54px)}
+.pts div{border-top:2px solid #08263a;padding-top:10px}
+.pts h3{font-size:clamp(1.5rem,2.2vw,2.2rem)}
+.pts p{margin-top:6px;font-size:clamp(1.02rem,1.25vw,1.15rem);line-height:1.35}
+.said{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,28px);margin-top:clamp(26px,5vh,54px);font-weight:500}
+.said blockquote{font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1.28}
+.said cite{display:block;font-style:normal;font-size:.9375rem;margin-top:6px;font-weight:600}
+/* Gigi */
+.gigi{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(14px,1.6vw,22px);align-items:start;background:#fff;border-radius:var(--rad);padding:clamp(14px,1.6vw,22px)}
+.gigi img{width:clamp(96px,10vw,150px);height:auto;aspect-ratio:1;object-fit:cover;border-radius:12px}
+.gigi h3{font-size:clamp(1.5rem,2.3vw,2.3rem)}
+.gigi .value{display:inline-block;margin-top:10px;background:#ffd34d;padding:.35em .65em;border-radius:6px;font-weight:600}
+.gigi p{margin-top:8px;line-height:1.35}
+.before-g .film-col p{margin-top:12px;font-size:clamp(1.02rem,1.25vw,1.15rem);line-height:1.35}
+.before-g{align-items:start}
+/* What you get */
+.get{padding-block:clamp(40px,8vh,90px)}
+.get-l{display:grid;grid-template-columns:repeat(2,1fr);column-gap:clamp(14px,2vw,28px);margin-top:18px;font-size:clamp(1.05rem,1.4vw,1.25rem);line-height:1.3}
+.get-l li{padding-block:12px;border-top:1px solid rgba(8,38,58,.25)}
+.get-l .val{font-weight:600}
+/* Reserve, same parts as the live checkout */
+.reserve{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(18px,3vw,50px);align-items:start;margin-top:clamp(20px,4vh,40px);scroll-margin-top:12px}
+.sheet{background:#fff;border-radius:var(--rad);padding:clamp(18px,2.4vw,34px);color:#0f0f0f}
+.sheet h3{font-size:clamp(1.8rem,3vw,3rem)}
+.sheet .kick{font-weight:600;font-size:.9375rem;margin-bottom:6px}
+.sheet .sub{margin-top:8px;line-height:1.45}
+.member{display:flex;align-items:center;gap:14px;margin-top:14px;padding:14px 16px;border:1px solid rgba(25,19,35,.14);border-radius:14px;font-size:.9375rem;line-height:1.4}
+.member a{flex:none;background:#08263a;color:#fff;text-decoration:none;font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;padding:.95em 1.2em;border-radius:999px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.fields label{display:block;font-weight:600;font-size:.875rem}
+.fields .w{grid-column:1/-1}
+.fields input{display:block;width:100%;min-height:48px;margin-top:6px;padding:10px 14px;font:400 1rem var(--body);border:1px solid #cfc6b4;background:#f7f3ea;color:#0f0f0f}
+.fields small{display:block;margin-top:6px;font-weight:400;font-size:.8125rem;color:#5c574f}
+.plan{margin-top:16px;border:0;padding:0}
+.plan legend{font-weight:600;font-size:.875rem;padding:0;margin-bottom:6px}
+.plan-r{display:flex;align-items:center;gap:12px;padding-block:12px;border-top:1px solid #0f0f0f;border-bottom:1px solid #cfc6b4}
+.plan-r i{flex:none;width:18px;height:18px;border:1px solid #0f0f0f;border-radius:50%;display:grid;place-items:center}
+.plan-r i::after{content:"";width:10px;height:10px;border-radius:50%;background:#f2704a}
+.plan-r span{flex:1;font-weight:600;line-height:1.2}
+.plan-r small{display:block;font-weight:400;font-size:.8125rem;color:#5c574f;margin-top:2px}
+.today,.opts a{font-size:.8125rem;color:#5c574f}
+.today{margin-top:8px}
+.opts{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px}
+.opts a{display:inline-flex;align-items:center;min-height:44px;font-size:.875rem}
+.pay-btn{display:block;background:#0f0f0f;color:#ede6d8;text-align:center;text-decoration:none;font-weight:600;padding:1.1em;margin-top:6px;transition:transform .16s ease-out}
+.pay-btn:active{transform:scale(.98)}
+.stripe{font-size:.8125rem;color:#5c574f;text-align:center;margin-top:10px;line-height:1.35}
+.guar2{font-weight:600;margin-top:14px;text-align:center}
+.room{margin:0}
+.room video{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--rad);background:#08263a}
+.room figcaption{font-size:.875rem;margin-top:8px;font-weight:500;line-height:1.35}
+/* Monday */
+.mon-g{display:grid;grid-template-columns:6fr 6fr;gap:clamp(24px,4vw,70px);align-items:start;margin-top:clamp(14px,3vh,28px)}
+.mon-g .line{margin-top:0}
+.mon-gigi{display:flex;gap:14px;align-items:center;margin-top:18px;font-weight:500;line-height:1.35}
+.mon-gigi img{width:72px;height:72px;object-fit:cover;border-radius:12px;flex:none}
+.monday .btn{margin-top:20px}
+
+@media(max-width:820px){
+  .brain-g,.pts,.said,.get-l,.reserve,.mon-g{grid-template-columns:1fr}
+  .fields{grid-template-columns:1fr}
+  .member{flex-direction:column;align-items:flex-start}
+  .hero h1{font-size:min(17vw,10.5vh)}
+  .top .btn{display:none}
+  .hero{min-height:calc(100svh - 72px)}
+  .hero-low,.cast,.box-grid{grid-template-columns:1fr}
+  .offer .btn{width:100%}
+  .strip{height:150px}
+  .sun{opacity:.9}
+  .scene{min-height:0}
+  #s-sat,#s-sun{min-height:100svh}
+  .night{height:auto;min-height:130svh;justify-content:flex-start;padding-top:18vh}
+  .clock{font-size:25vw}
+  .before-g{grid-template-columns:1fr}
+  .now{display:none}
+  .sticky{background:#08263a;color:#fff}
+  .sticky a{background:#ffd34d;color:#08263a}
+}
+</style>
+
+<a class="skip" href="#main">Skip to the bootcamp details</a>
+<div class="sky" aria-hidden="true"><i class="s0"></i><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i><i class="s5"></i><i class="s6"></i></div>
+<div class="stars" aria-hidden="true"></div>
+<div class="moon" aria-hidden="true"></div>
+<div class="sun" aria-hidden="true"></div>
+<div class="now" id="now" aria-hidden="true"></div>
+
+<header class="hero pad" data-hero id="s0">
+  <div class="top"><span>AI Bootcamp 7, from AI School</span><a class="btn" href="#register">Reserve your seat</a></div>
+  <div class="hero-main">
+    <p class="when-big">AI Bootcamp 7 · November 21 &amp; 22 · Sawubona, Venice</p>
+    <h1 class="b" aria-label="Become an AI Master">Become an AI <span id="rank" aria-hidden="true">Master.</span></h1>
+  </div>
+  <div class="hero-low">
+    <div class="offer">
+      <p>Leave with AI agents running your business. Two days in Venice with Benza Maman, the #1 AI instructor on Udemy.</p>
+      <a class="btn" href="#register">Reserve your seat</a>
+      <small>Build a working agent, or your money back.</small>
+      <a class="in" href="#register">Giraffe? Sign in for your member rate</a>
+    </div>
+    <div class="strip">
+      <img src="img/room-wide.jpg" srcset="img/room-wide-800.jpg 800w,img/room-wide.jpg 2200w" sizes="(max-width:820px) 50vw,32vw" width="2200" height="1238" alt="Participants building together in the plant-filled loft" fetchpriority="high">
+      <img src="img/peace.jpg" srcset="img/peace-800.jpg 800w,img/peace.jpg 1600w" sizes="(max-width:820px) 25vw,20vw" width="1600" height="1067" alt="A participant laughing and flashing a peace sign" style="object-position:40% 35%" fetchpriority="high">
+      <img src="img/smile.jpg" srcset="img/smile-800.jpg 800w,img/smile.jpg 1600w" sizes="(max-width:820px) 25vw,20vw" width="1600" height="1067" alt="A participant smiling at the camera" style="object-position:72% 40%">
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="brain pad" id="s-brain" data-now="Why Claude Code">
+  <h2 class="b">Claude Code becomes an extension of your brain.</h2>
+  <div class="brain-g">
+    <p>It runs on your own laptop, connected to your email, calendar, files and tools. Anything you do on a computer, Claude Code can do with you, better and faster, and it keeps going while you sleep.</p>
+    <p>You stop doing every task yourself and start directing the work. That is how one person gets ten times as much done.</p>
+  </div>
+  <div class="pts">
+    <div><h3 class="b">It sees what you see</h3><p>Your inbox, calendar, documents and accounts, connected once and always in reach.</p></div>
+    <div><h3 class="b">It does what you do</h3><p>Writes, researches, books, files, posts and follows up, the way you would.</p></div>
+    <div><h3 class="b">It remembers</h3><p>Your business, your voice and your rules, so every task starts where the last one ended.</p></div>
+  </div>
+  <div class="said">
+    <blockquote>“I already in two hours built out an agent that will execute a task for me that’s been taking me months.”<cite>Jacqueline Korren, Bootcamp 5</cite></blockquote>
+    <blockquote>“I’ve actually been surprised, oh my gosh, Claude Code can do this?”<cite>Tommy Sobel, Bootcamp 3</cite></blockquote>
+  </div>
+</section>
+
+<section class="scene pad" id="s-before" data-now="The week before" aria-label="Before the weekend">
+  <h2 class="stamp b">The week before</h2>
+  <div class="before-g">
+    <div class="gigi">
+      <img src="img/gigi-poster.webp" width="720" height="720" loading="lazy" alt="Gigi, the Grateful Giraffes AI coach">
+      <div>
+        <h3 class="b">Gigi installs your AgentOS.</h3>
+        <span class="value">A $1,000 value, included with your seat</span>
+        <p>Gigi, our AI coach, does the installation on your own laptop before the weekend, so Saturday starts with building.</p>
+        <p>Three months of her private coaching come with your seat. Text or call her any time.</p>
+      </div>
+    </div>
+    <div class="film-col">
+      <div class="tv" id="tv"><a class="tv-link" id="tv-link" href="https://youtu.be/YmrRnvNluOM" aria-label="Play The Agentic Era"><img src="img/agentic-wide.jpg" srcset="img/agentic-wide-800.jpg 800w,img/agentic-wide.jpg 1920w" sizes="100vw" width="1920" height="835" loading="lazy" alt="Benza Maman talking to camera at his desk"><span class="play"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1l9 6-9 6z"/></svg>Watch the film</span></a></div>
+      <p>Meet your instructor, Benza Maman. The #1 AI instructor on Udemy. 500,000+ students. Programs for Samsung, Apple, Pepsi and Nike.</p>
+    </div>
+  </div>
+</section>
+
+<section class="scene pad" id="s-sat" data-now="Saturday, 12pm">
+  <h2 class="stamp b">Saturday, 12pm</h2>
+  <p class="line">The Claude mini course, live, with your inbox, calendar and payments plugged in. Then your first routine, built on your real business.</p>
+  <img class="pic r" src="img/act2.jpg" srcset="img/act2-800.jpg 800w,img/act2.jpg 1600w" sizes="(max-width:820px) 100vw,66vw" width="1600" height="1067" loading="lazy" alt="Benza leaning in to help participants at their laptops" style="object-position:40% 30%">
+</section>
+
+<section class="scene night pad" id="s-night" data-now="Saturday night">
+  <h2 class="stamp b">Saturday night</h2>
+  <p class="line">You go to sleep. Your first routine keeps running overnight.</p>
+  <p class="clock b" id="clock" aria-hidden="true">10:00pm</p>
+  <p class="status"><span class="dot" aria-hidden="true"></span>Your routine is running</p>
+</section>
+
+<section class="scene pad" id="s-sun" data-now="Sunday, 12pm">
+  <h2 class="stamp b">Sunday, 12pm</h2>
+  <p class="line">Map every workflow worth automating and set the rules your agents run under. Then deploy the rest.</p>
+  <img class="pic" src="img/act3.jpg" srcset="img/act3-800.jpg 800w,img/act3.jpg 1600w" sizes="(max-width:820px) 100vw,66vw" width="1600" height="1067" loading="lazy" alt="Benza showing a laptop to a small group" style="object-position:72% 30%">
+</section>
+
+<section class="group pad" id="s-people" data-now="Sunday afternoon">
+  <h2 class="film-t b">People who spent the weekend</h2>
+  <div class="f-row">
+    <div class="f-tile"><button class="film" aria-label="Play Eric Luke’s video"><video preload="none" playsinline poster="img/p-eric.jpg" src="img/t-eric.mp4"><track kind="captions" src="img/t-eric.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 1l9 6-9 6z"/></svg>Play</span><i class="fbar"></i></button><p class="f-who"><b>Eric Luke</b>Runs short-term rentals<time>0:20</time></p></div>
+    <div class="f-tile"><button class="film" aria-label="Play Lily’s video"><video preload="none" playsinline poster="img/g4.jpg" src="img/t-lily.mp4"><track kind="captions" src="img/t-lily.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 1l9 6-9 6z"/></svg>Play</span><i class="fbar"></i></button><p class="f-who"><b>Lily</b>Photographer and retoucher<time>0:24</time></p></div>
+    <div class="f-tile"><button class="film" aria-label="Play Sebastian’s video"><video preload="none" playsinline poster="img/p-sebastian.jpg" src="img/t-sebastian.mp4"><track kind="captions" src="img/t-sebastian.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 1l9 6-9 6z"/></svg>Play</span><i class="fbar"></i></button><p class="f-who"><b>Sebastian</b>Growth marketing agency<time>0:27</time></p></div>
+    <div class="f-tile"><button class="film" aria-label="Play Shirlene’s video"><video preload="none" playsinline poster="img/p-shirlene.jpg" src="img/t-shirlene.mp4"><track kind="captions" src="img/t-shirlene.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 1l9 6-9 6z"/></svg>Play</span><i class="fbar"></i></button><p class="f-who"><b>Shirlene</b>Building a parenting app<time>0:22</time></p></div>
+    <div class="f-tile"><button class="film" aria-label="Play Valeria’s video"><video preload="none" playsinline poster="img/p-valeria.jpg" src="img/t-valeria.mp4"><track kind="captions" src="img/t-valeria.vtt" srclang="en" label="English" default></video><span class="fp" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 1l9 6-9 6z"/></svg>Play</span><i class="fbar"></i></button><p class="f-who"><b>Valeria Vallejos</b>Actress, building businesses<time>0:25</time></p></div>
+  </div>
+</section>
+
+<section class="get pad" id="s-get" data-now="Sunday afternoon">
+  <h2 class="film-t b">Everything you walk out with.</h2>
+  <ul class="get-l">
+    <li class="val">AgentOS installed for you by Gigi, a $1,000 value</li>
+    <li>AgentOS: 60+ agents and skills, customized to your company</li>
+    <li>An inbox agent that triages your email and drafts replies in your voice</li>
+    <li>A morning-brief agent that reads your calendar, email and tasks before you wake up</li>
+    <li>A content agent that drafts posts and newsletters in your voice, daily</li>
+    <li>A life-admin agent that runs your home, errands and travel on a schedule</li>
+    <li>Three months of Gigi’s private coaching, by text or call, any time</li>
+    <li>Three months of AI School: a weekly live call with Benza, and the whole Q&amp;A history through Gigi</li>
+    <li>Lifetime access to the private WhatsApp group, plus Q&amp;A and recordings</li>
+  </ul>
+</section>
+
+<section class="box pad" id="reserve" data-now="Sunday, 6pm">
+  <h2 class="stamp b">Sunday, 6pm</h2>
+  <p class="line">Your agents are deployed, and you run it all from your phone.</p>
+  <!-- PREVIEW STAND-IN for the live #register section. In production, mount the existing checkout (Stripe, member sign-in, payment plans, codes) here unchanged. -->
+  <div class="reserve" id="register">
+    <div class="sheet">
+      <p class="kick">Reserve your seat</p>
+      <h3 class="b">AI Bootcamp 7 · November 21 &amp; 22</h3>
+      <p class="sub">12pm to 6pm both days at Sawubona in Venice, a plant-filled, light-soaked loft a few blocks from the ocean.</p>
+      <div class="member"><span><strong>Already a Grateful Giraffe?</strong> Members get special rates. Sign in to see yours.</span><a href="https://app.grateful.gg/ai/bootcamp7#register">Sign in</a></div>
+      <div class="fields">
+        <label>Full name<input autocomplete="off" readonly></label>
+        <label>Email<input type="email" autocomplete="off" readonly></label>
+        <label class="w">Phone<input type="tel" autocomplete="off" readonly></label>
+        <label class="w">Who referred you?<input autocomplete="off" readonly><small>Or tell us how you heard about it.</small></label>
+      </div>
+      <fieldset class="plan"><legend>How would you like to pay?</legend>
+        <div class="plan-r"><i aria-hidden="true"></i><span>Pay in full<small>One payment today</small></span><b>$1,800</b></div>
+      </fieldset>
+      <p class="today">Paying $1,800 of $1,800 today</p>
+      <div class="opts"><a href="https://app.grateful.gg/ai/bootcamp7#register">Need a payment plan?</a><a href="https://app.grateful.gg/ai/bootcamp7#register">Have a code?</a></div>
+      <a class="pay-btn" href="https://app.grateful.gg/ai/bootcamp7#register">Reserve my seat · $1,800 today</a>
+      <p class="stripe">Secure checkout by Stripe. Payment-plan cards are saved for the remaining installments.</p>
+      <p class="stripe"><strong>Preview only:</strong> this form is a stand-in, and these buttons open the live checkout.</p>
+      <p class="guar2">Build a working agent, or your money back.</p>
+    </div>
+    <figure class="room">
+      <video src="img/room-montage.mp4" loop muted playsinline autoplay preload="metadata" aria-label="Bootcamp 6 in Venice: help at every table, lunch in the room, Benza at the front"></video>
+      <figcaption>Bootcamp 6 in Venice: help at every table, lunch in the room, Benza at the front</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="monday pad" id="s-mon" data-now="Monday morning">
+  <h2 class="stamp b">Monday morning</h2>
+  <div class="mon-g">
+    <div>
+      <p class="line">You’re not on your own. Three months of AI School: a weekly live call with Benza to keep building together, and every replay.</p>
+      <div class="mon-gigi"><img src="img/gigi-poster.webp" width="720" height="720" loading="lazy" alt=""><p>Text or call Gigi any time, day or night. She has the whole AI School Q&amp;A history at hand.</p></div>
+      <a class="btn" href="#register">Reserve your seat</a>
+    </div>
+    <div class="faq">
+      <details><summary>Where is it?</summary><p>Sawubona in Venice, a few blocks from the ocean.</p></details>
+      <details><summary>What happens before the weekend?</summary><p>Gigi, our AI coach, does your AgentOS installation, a $1,000 value included with your seat, so you arrive with everything set up and ready to build.</p></details>
+      <details><summary>Do I need to be technical?</summary><p>No. Everything is installed before you arrive, and Benza and the team are in the room to help you build.</p></details>
+      <details><summary>What if it doesn’t work for me?</summary><p>If you don’t have at least one working agent by the end, email <a href="mailto:gigi@grateful.gg">gigi@grateful.gg</a> and we’ll refund you in full.</p></details>
+      <details><summary>I’m a Grateful Giraffe. Is there a member rate?</summary><p>Yes. Sign in and your rate updates on this page automatically.</p></details>
+      <details><summary>What happens after the weekend?</summary><p>Three months of AI School and three months of Gigi’s private coaching come with your seat: a weekly live call with Benza, and Gigi by text or call any time.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="end pad has-sticky">AI School by Grateful Labs.</footer>
+
+<a class="pill" id="pill" href="#register"><span>Reserve your seat</span></a>
+<div class="sticky"><span>Nov 21 and 22, Venice<br>Build an agent or your money back</span><a href="#register">Reserve</a></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
+<script src="common.js"></script>
+<script>
+// The hero word from the AI School homepage. One pass, then it rests on Master.
+(function(){
+  if(BC.reduce)return;
+  var el=document.getElementById('rank'),words=['Sensei.','Superhero.','Wizard.','Master.'],i=0;
+  function next(){
+    el.classList.add('out');
+    setTimeout(function(){el.textContent=words[i++];el.classList.remove('out');if(i<words.length)setTimeout(next,1500)},150);
+  }
+  setTimeout(next,1800);
+})();
+(function(){
+  var root=document.documentElement;
+  // Without motion, each section keeps a plain readable background.
+  if(!BC.motion){
+    var s={'s-night':'#0a1b3a','s-sun':'#ffeed8',reserve:'#ffc36a'};
+    Object.keys(s).forEach(function(id){document.getElementById(id).style.background=s[id]});
+    document.querySelector('.sky').style.display='none';
+    return;
+  }
+  root.classList.add('motion');
+  var layers=gsap.utils.toArray('.sky i'),sun=document.querySelector('.sun'),stars=document.querySelector('.stars'),moon=document.querySelector('.moon'),clock=document.getElementById('clock');
+  var phone=innerWidth<=820,PIN=!phone&&innerHeight>=600;
+  var vw=function(n){return innerWidth*n/100},vh=function(n){return innerHeight*n/100};
+  var at={x:phone?72:68,y:phone?-3:8,s:1};
+  gsap.set(sun,{x:vw(at.x),y:vh(at.y),scale:1});
+  function sky(id,n,a,b){gsap.fromTo(layers[n],{opacity:0},{opacity:1,ease:'none',scrollTrigger:{trigger:id,start:a,end:b,scrub:true}})}
+  // One sun, one calculation. Its place depends only on where you are on the page.
+  var path=[];
+  function sunTo(id,x,y,s,a,b){path.push({el:document.querySelector(id),x:x,y:y,s:s,ap:a?parseFloat(a.split(' ')[1]):90,bp:b?parseFloat(b.split(' ')[1]):15})}
+  function sunMeasure(){
+    path.forEach(function(p){
+      var box=p.el.parentNode.classList.contains('pin-spacer')?p.el.parentNode:p.el;
+      var top=box.getBoundingClientRect().top+scrollY;
+      p.a=top-innerHeight*p.ap/100;p.b=top-innerHeight*p.bp/100;
+    });
+  }
+  var sunX=gsap.quickSetter(sun,'x','px'),sunY=gsap.quickSetter(sun,'y','px'),sunSX=gsap.quickSetter(sun,'scaleX'),sunSY=gsap.quickSetter(sun,'scaleY');
+  function sunPaint(){
+    var y=scrollY,c={x:at.x,y:at.y,s:at.s};
+    for(var i=0;i<path.length;i++){
+      var p=path[i];if(y<=p.a)break;
+      var k=Math.min(1,(y-p.a)/(p.b-p.a));
+      c={x:c.x+(p.x-c.x)*k,y:c.y+(p.y-c.y)*k,s:c.s+(p.s-c.s)*k};
+    }
+    sunX(vw(c.x));sunY(vh(c.y));sunSX(c.s);sunSY(c.s);
+  }
+  // Created in page order so the pinned night offsets everything after it correctly.
+  sunTo('#s-brain',82,6,.9);
+  sunTo('#s-before',76,4,.95);
+  sky('#s-sat',1,'top 70%','top 15%');sunTo('#s-sat',84,40,1.05);
+  sky('#s-night',2,'top 98%','top 62%');sunTo('#s-night',50,115,1.1,'top 110%','top 60%');
+  gsap.fromTo(stars,{opacity:0},{opacity:1,ease:'none',scrollTrigger:{trigger:'#s-night',start:'top 80%',end:'top 40%',scrub:true}});
+  gsap.fromTo(moon,{opacity:0},{opacity:1,ease:'none',scrollTrigger:{trigger:'#s-night',start:'top 70%',end:'top 30%',scrub:true}});
+  // The clock runs through the night as you scroll: 10pm to 6am.
+  var t0={m:0},fmt=function(m){var mins=(22*60+Math.round(m/5)*5)%(24*60),h=Math.floor(mins/60),mm=mins%60,ap=h>=12?'pm':'am',h12=h%12||12;return h12+':'+(mm<10?'0':'')+mm+ap};
+  var nt=gsap.timeline({defaults:{ease:'none'},scrollTrigger:PIN?{trigger:'#s-night',start:'top top',end:'+=170%',pin:true,scrub:.3,anticipatePin:1}:{trigger:'#s-night',start:'top 45%',end:'bottom 55%',scrub:.3}});
+  nt.to(t0,{m:480,duration:1,onUpdate:function(){clock.textContent=fmt(t0.m)}},0).to(moon,{y:function(){return vh(-16)},duration:1},0).to(stars,{y:function(){return vh(-5)},duration:1},0);
+  ScrollTrigger.create({trigger:'#s-night',start:'top 55%',end:PIN?function(){return nt.scrollTrigger.end+innerHeight*.35}:'bottom 40%',toggleClass:{targets:root,className:'is-night'}});
+  gsap.to(stars,{opacity:0,ease:'none',scrollTrigger:{trigger:'#s-sun',start:'top 70%',end:'top 35%',scrub:true}});
+  gsap.to(moon,{opacity:0,ease:'none',immediateRender:false,scrollTrigger:{trigger:'#s-sun',start:'top 80%',end:'top 45%',scrub:true}});
+  sky('#s-sun',3,'top 62%','top 28%');sunTo('#s-sun',8,12,.95);
+  sky('#s-people',4,'top 70%','top 15%');sunTo('#s-people',74,8,1);
+  sunTo('#s-get',86,30,1.05);
+  sky('#reserve',5,'top 70%','top 15%');sunTo('#reserve',64,62,2.3);
+  sky('#s-mon',6,'top 70%','top 15%');sunTo('#s-mon',10,14,.9);
+  ScrollTrigger.create({start:0,end:'max',onRefresh:function(){sunMeasure();sunPaint()},onUpdate:sunPaint});
+  // A small marker keeps you in the timeline.
+  var now=document.getElementById('now');
+  document.querySelectorAll('[data-now]').forEach(function(sec){
+    ScrollTrigger.create({trigger:sec,start:'top 55%',end:'bottom 55%',onToggle:function(self){if(self.isActive){now.textContent=sec.dataset.now;now.classList.add('show')}}});
+  });
+  ScrollTrigger.create({trigger:'#s-brain',start:'top 55%',onLeaveBack:function(){now.classList.remove('show')}});
+  // At the price and the close, the real buttons take over.
+  ScrollTrigger.create({trigger:'#reserve',start:'top 80%',endTrigger:'#s-mon',end:'top 60%',toggleClass:{targets:root,className:'at-box'}});
+  ScrollTrigger.create({trigger:'#s-mon',start:'top 60%',end:'max',toggleClass:{targets:root,className:'at-mon'}});
+})();
+</script>
