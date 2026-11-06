@@ -261,7 +261,7 @@ html:not(.motion) .sun,html:not(.motion) .stars,html:not(.motion) .moon{display:
   var t0={m:0},fmt=function(m){var mins=(22*60+Math.round(m/5)*5)%(24*60),h=Math.floor(mins/60),mm=mins%60,ap=h>=12?'pm':'am',h12=h%12||12;return h12+':'+(mm<10?'0':'')+mm+ap};
   var nt=gsap.timeline({defaults:{ease:'none'},scrollTrigger:PIN?{trigger:'#s-night',start:'top top',end:'+=170%',pin:true,scrub:.3,anticipatePin:1}:{trigger:'#s-night',start:'top 45%',end:'bottom 55%',scrub:.3}});
   nt.to(t0,{m:480,duration:1,onUpdate:function(){clock.textContent=fmt(t0.m)}},0).to(moon,{y:function(){return vh(-16)},duration:1},0).to(stars,{y:function(){return vh(-5)},duration:1},0);
-  ScrollTrigger.create({trigger:'#s-night',start:'top 55%',endTrigger:'#s-sun',end:'top 60%',toggleClass:{targets:root,className:'is-night'}});
+  ScrollTrigger.create({trigger:'#s-night',start:'top 55%',end:PIN?function(){return nt.scrollTrigger.end+innerHeight*.35}:'bottom 40%',toggleClass:{targets:root,className:'is-night'}});
   gsap.to(stars,{opacity:0,ease:'none',scrollTrigger:{trigger:'#s-sun',start:'top 70%',end:'top 35%',scrub:true}});
   gsap.to(moon,{opacity:0,ease:'none',immediateRender:false,scrollTrigger:{trigger:'#s-sun',start:'top 80%',end:'top 45%',scrub:true}});
   sky('#s-sun',3,'top 62%','top 28%');sunTo('#s-sun',8,12,.95);
